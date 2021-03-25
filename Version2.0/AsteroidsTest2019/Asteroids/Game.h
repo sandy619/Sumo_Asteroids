@@ -32,6 +32,7 @@ public:
 	bool IsGameOver() const;
 
 	void DoCollision(GameEntity *a, GameEntity *b);
+	
 
 private:
 	Game(const Game &);
@@ -39,6 +40,7 @@ private:
 
 	typedef std::list<Asteroid *> AsteroidList;
 	typedef std::list<Explosion *> ExplosionList;
+	typedef std::list<Bullet *> BulletList;
 
 	void SpawnPlayer();
 	void DeletePlayer();
@@ -50,13 +52,15 @@ private:
 
 	void DeleteAllAsteroids();
 	void DeleteAllExplosions();
+	void DeleteAllBullets();
 
 	void SpawnBullet(XMVECTOR position, XMVECTOR direction);
-	void DeleteBullet();
+	void DeleteBullet(Bullet* bullet);
 
 	void SpawnAsteroids(int numAsteroids);
 	void SpawnAsteroidAt(XMVECTOR position, int size);
 	bool IsAsteroid(GameEntity *entity) const;
+	bool IsBullet(GameEntity *entity) const;
 	void AsteroidHit(Asteroid *asteroid);
 	void DeleteAsteroid(Asteroid *asteroid);
 
@@ -68,12 +72,12 @@ private:
 
 	Background *background_;
 	Ship *player_;
-	Bullet *bullet_;
+	BulletList bullet_;
 	AsteroidList asteroids_;
 	ExplosionList explosions_;
 	int bulletDelay;
 	int lives;
-
+	int score;
 	Collision *collision_;
 };
 
